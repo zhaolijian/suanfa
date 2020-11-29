@@ -52,6 +52,7 @@ class Solution:
             return func(head, temp)
         return func(None, head)
 
+
 if __name__ == '__main__':
     s = Solution()
     head = ListNode(1)

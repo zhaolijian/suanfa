@@ -1,3 +1,4 @@
+import random
 class Solution:
     def guibing_sort(self, array):
         length = len(array)
@@ -24,5 +25,5 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    array = [3,5,3,1,2,7]
+    array = [random.randint(1, 30) for i in range(10)]
     print(s.guibing_sort(array))

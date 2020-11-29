@@ -40,6 +40,7 @@ class LRUCache:
             if self.number == self.capacity:
                 temp = self.tail.prev
                 self.removeNode(self.tail.prev)
+                # 这会用到节点的key值
                 self.cache.pop(temp.key)
                 self.number -= 1
             self.addToHead(node)
@@ -48,6 +49,63 @@ class LRUCache:
     def removeNode(self, node):
         node.prev.next = node.next
         node.next.prev = node.prev
+
+    def addToHead(self, node):
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next = node
+        node.next.prev = node
+
+
+
+class DLinkedList:
+    def __init__(self, key = 0, val = 0):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.s = {}
+        self.capacity = capacity
+        self.number = 0
+        self.head = DLinkedList()
+        self.tail = DLinkedList()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+
+    def get(self, key: int) -> int:
+        if key not in self.s:
+            return -1
+        # 找到的节点
+        temp = self.s[key]
+        self.removeNode(temp)
+        self.addToHead(temp)
+        return temp.val
+
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.s:
+            self.s[key].val = value
+            self.removeNode(self.s[key])
+            self.addToHead(self.s[key])
+        else:
+            temp = DLinkedList(key, value)
+            self.s[key] = temp
+            if self.number < self.capacity:
+                self.number += 1
+            else:
+                # 这会用到节点的key值
+                self.s.pop(self.tail.prev.key)
+                self.removeNode(self.tail.prev)
+            self.addToHead(temp)
+
+    def removeNode(self, node):
+        node.next.prev = node.prev
+        node.prev.next = node.next
 
     def addToHead(self, node):
         node.next = self.head.next

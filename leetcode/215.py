@@ -9,6 +9,7 @@ class Solution:
         heapq.heapify(array)
         for i in range(k, len(nums)):
             heapq.heappushpop(array, nums[i])
+        # return heappop(array)
         return array[0]
 
 
