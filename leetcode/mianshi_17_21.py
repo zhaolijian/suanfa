@@ -37,7 +37,7 @@ class Solution:
         return res
 
 
-# 方法2 双指针
+# 方法2 双指针之比较最大值
 class Solution:
     def trap(self, height) -> int:
         length = len(height)
@@ -53,6 +53,27 @@ class Solution:
                 left_max = max(left_max, height[left])
             else:
                 res += right_max - height[right]
+                right -= 1
+                right_max = max(right_max, height[right])
+        return res
+
+
+# 双指针之比较遍历当前值
+class Solution:
+    def trap(self, height) -> int:
+        length = len(height)
+        if length < 3:
+            return 0
+        left, right = 0, length - 1
+        left_max, right_max = height[left], height[right]
+        res = 0
+        while left < right:
+            if height[left] < height[right]:
+                res += min(left_max, right_max) - height[left]
+                left += 1
+                left_max = max(left_max, height[left])
+            else:
+                res += min(left_max, right_max) - height[right]
                 right -= 1
                 right_max = max(right_max, height[right])
         return res

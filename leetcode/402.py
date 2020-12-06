@@ -2,37 +2,25 @@
 # 注意:
 # num 的长度小于 10002 且 ≥ k。
 # num 不会包含任何前导零。
+
+
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-        length = len(num)
-        if k >= length:
-            return "0"
         res = ""
         stack = []
         number = 0
-        flag = False
         for ele in num:
-            if not flag:
-                while stack and stack[-1] > ele:
-                    stack.pop()
-                    number += 1
-                    if number >= k:
-                        flag = True
-                        break
+            while number < k and stack and stack[-1] > ele:
+                stack.pop()
+                number += 1
             stack.append(ele)
         while number < k:
             stack.pop()
             number += 1
         while stack:
             res = stack.pop() + res
-        # 去掉前缀为0
-        index = -1
-        for i, ele in enumerate(res):
-            if ele == '0':
-                index = i
-            else:
-                break
-        return res[index + 1:]
+        # or: 从左到右扫描返回第一个为true的表达式,如果全为false,则返回最后一个表达式
+        return res.lstrip("0") or "0"
 
 
 if __name__ == '__main__':

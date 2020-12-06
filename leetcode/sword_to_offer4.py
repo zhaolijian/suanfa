@@ -1,26 +1,18 @@
-# 请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+# 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
+# 请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数
 
 
-# 方法1 调用现成函数
-# class Solution:
-#     def replaceSpace(self, s: str) -> str:
-#         return s.replace(" ", "%20")
-
-
-# 方法2
 class Solution:
-    def replaceSpace(self, s: str) -> str:
-        res = ""
-        for ele in s:
-            if ele == " ":
-                res += "%20"
+    def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
+        if not matrix:
+            return False
+        height, width = len(matrix), len(matrix[0])
+        i, j = height - 1, 0
+        while i >= 0 and j < width:
+            if matrix[i][j] == target:
+                return True
+            elif matrix[i][j] > target:
+                i -= 1
             else:
-                res += ele
-        return res
-j
-
-
-if __name__ == '__main__':
-    s = Solution()
-    ss = "We are happy."
-    print(s.replaceSpace(ss))
+                j += 1
+        return False
