@@ -1,3 +1,21 @@
+# 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        res, left, i = 0, 0, 0
+        set_array = set()
+        while i < len(s):
+            if s[i] not in set_array:
+                set_array.add(s[i])
+                res = max(res, i - left + 1)
+                i += 1
+            else:
+                while s[i] in set_array:
+                    set_array.remove(s[left])
+                    left += 1
+        return res
+
+
+# 以前写的，真复杂
 class Solution:
     def lengthOfLongestSubstring(self, s: str):
         if len(s) <= 0:
