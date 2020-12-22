@@ -31,3 +31,9 @@ class Solution:
                     array.append(temp.right)
             flag += 1
         return res
+
+
+if __name__ == '__main__':
+    s = Solution()
+    root = [3,9,20,null,null,15,7]
+    print(s.zigzagLevelOrder())
