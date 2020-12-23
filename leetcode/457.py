@@ -5,40 +5,40 @@
 class Solution:
     def circularArrayLoop(self, nums) -> bool:
         length = len(nums)
-        temp = nums + nums
-        temp1 = nums[::-1] + nums[::-1]
         for i, number in enumerate(nums):
             if number > 0:
-                start = i
-                # 循环长度
-                number = 0
-                while start < i + length:
-                    if temp[start] < 0:
-                        break
-                    number += 1
-                    start += temp[start]
-                    if start == i + length:
-                        if number == 1:
-                            return False
-                        return True
+                start, cur = i, i
+                # 走的步数
+                val = 0
+                # 走过的位置
+                s = set()
+                s.add(i)
+                while not val or (nums[cur] > 0 and cur not in s):
+                    val += 1
+                    s.add(cur)
+                    cur = (cur + nums[cur]) % length
+                if val > 1 and cur == start:
+                    return True
             else:
-                cur = length - 1 - i
-                start = cur
-                # 循环长度
-                number = 0
-                while start < cur + length:
-                    if temp1[start] > 0:
-                        break
-                    number += 1
-                    start += abs(temp1[start])
-                    if start == cur + length:
-                        if number == 1:
-                            return False
-                        return True
+                start, cur = i, i
+                # 走的步数
+                val = 0
+                # 走过的位置
+                s = set()
+                s.add(i)
+                while not val or(nums[cur] < 0 and cur not in s):
+                    val += 1
+                    s.add(cur)
+                    cur = (cur + nums[cur]) % length
+                if val > 1 and cur == start:
+                    return True
         return False
 
 
 if __name__ == '__main__':
     s = Solution()
-    nums = [1,2,3,4,5]
+    # nums = [1,2,3,4,5]
+    # nums = [2,-1,1,2,2]
+    # nums = [-1, 2]
+    nums = [-1,-2,-3,-4,-5]
     print(s.circularArrayLoop(nums))
