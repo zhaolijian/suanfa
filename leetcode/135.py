@@ -5,6 +5,7 @@
 # 那么这样下来，老师至少需要准备多少颗糖果呢？
 
 
+# 两次遍历
 class Solution:
     def candy(self, ratings) -> int:
         length = len(ratings)
@@ -18,3 +19,9 @@ class Solution:
             if ratings[j] > ratings[j + 1]:
                 res[j] = max(res[j], res[j + 1] + 1)
         return sum(res)
+
+
+if __name__ == '__main__':
+    s = Solution()
+    ratings = [1,3,2,2,1]
+    print(s.candy(ratings))
