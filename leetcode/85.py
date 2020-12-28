@@ -1,8 +1,10 @@
+# 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
 class Solution:
     def maximalRectangle(self, matrix) -> int:
         height = len(matrix)
         width = len(matrix[0])
         res = 0
+        # 每个点上面连续1的个数，即连续1的宽度
         init = [[0 for i in range(width)] for j in range(height)]
         for i in range(width):
             if matrix[0][i] == "1":
