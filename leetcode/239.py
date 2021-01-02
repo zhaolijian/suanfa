@@ -1,21 +1,17 @@
 class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        res = []
-        window = []
-        for i in range(len(nums)):
-            if window and i - window[0] + 1 > k:
-                window.pop(0)
-            while window:
-                temp = window[-1]
-                if nums[i] > nums[temp]:
-                    window.pop()
-                else:
-                    break
-            window.append(i)
-            if i + 1 >= k:
-                res.append(nums[window[0]])
+    def maxSlidingWindow(self, nums, k: int):
+        res, array = [], []
+        number, length = 0, len(nums)
+        for i in range(length):
+            if array and i - array[0] >= k:
+                array.pop(0)
+            while array and nums[i] >= nums[array[-1]]:
+                array.pop()
+            array.append(i)
+            if i >= k - 1:
+                res.append(nums[array[0]])
         return res
-
+    
 
 # import collections
 #
@@ -68,42 +64,49 @@ class Solution:
 #             return result
 
 
-from collections import deque
+# from collections import deque
+#
+#
+# class Solution:
+#     def maxSlidingWindow(self, nums: 'List[int]', k: 'int') -> 'List[int]':
+#         # base cases
+#         n = len(nums)
+#         if n * k == 0:
+#             return []
+#         if k == 1:
+#             return nums
+#
+#         def clean_deque(i):
+#             # remove indexes of elements not from sliding window
+#             if deq and deq[0] == i - k:
+#                 deq.popleft()
+#
+#             # remove from deq indexes of all elements
+#             # which are smaller than current element nums[i]
+#             while deq and nums[i] > nums[deq[-1]]:
+#                 deq.pop()
+#
+#         # init deque and output
+#         deq = deque()
+#         max_idx = 0
+#         for i in range(k):
+#             clean_deque(i)
+#             deq.append(i)
+#             # compute max in nums[:k]
+#             if nums[i] > nums[max_idx]:
+#                 max_idx = i
+#         output = [nums[max_idx]]
+#
+#         # build output
+#         for i in range(k, n):
+#             clean_deque(i)
+#             deq.append(i)
+#             output.append(nums[deq[0]])
+#         return output
 
 
-class Solution:
-    def maxSlidingWindow(self, nums: 'List[int]', k: 'int') -> 'List[int]':
-        # base cases
-        n = len(nums)
-        if n * k == 0:
-            return []
-        if k == 1:
-            return nums
-
-        def clean_deque(i):
-            # remove indexes of elements not from sliding window
-            if deq and deq[0] == i - k:
-                deq.popleft()
-
-            # remove from deq indexes of all elements
-            # which are smaller than current element nums[i]
-            while deq and nums[i] > nums[deq[-1]]:
-                deq.pop()
-
-        # init deque and output
-        deq = deque()
-        max_idx = 0
-        for i in range(k):
-            clean_deque(i)
-            deq.append(i)
-            # compute max in nums[:k]
-            if nums[i] > nums[max_idx]:
-                max_idx = i
-        output = [nums[max_idx]]
-
-        # build output
-        for i in range(k, n):
-            clean_deque(i)
-            deq.append(i)
-            output.append(nums[deq[0]])
-        return output
+if __name__ == '__main__':
+    s = Solution()
+    nums = [7,2,4]
+    k = 2
+    print(s.maxSlidingWindow(nums, k))
