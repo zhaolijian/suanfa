@@ -1,3 +1,20 @@
+# 方法1
+class Solution:
+    def maxProfit(self, prices) -> int:
+        length = len(prices)
+        # 天数*交易次数*[无股票，有股票]
+        dp = [[[0, 0] for i in range(3)] for j in range(length)]
+        dp[0][0], dp[0][1], dp[0][2] = [0, -prices[0]], [float('-inf'), float('-inf')], [float('-inf'), float('-inf')]
+        for i in range(1, length):
+            dp[i][0] = [0, max(dp[i - 1][0][1], -prices[i])]
+            dp[i][1] = [max(dp[i - 1][1][0], dp[i - 1][0][1] + prices[i]),
+                        max(dp[i - 1][1][1], dp[i - 1][1][0] - prices[i])]
+            dp[i][2] = [max(dp[i - 1][2][0], dp[i - 1][1][1] + prices[i]),
+                        max(dp[i - 1][2][1], dp[i - 1][2][0] - prices[i])]
+        return max(dp[-1][0][0], dp[-1][1][0], dp[-1][2][0])
+
+
+# 方法2
 class Solution:
     def maxProfit(self, prices):
         if not prices:
