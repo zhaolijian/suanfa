@@ -4,22 +4,31 @@
 # 结果图是一个以边组成的二维数组。每一个边的元素是一对[u, v] ，满足 u < v，表示连接顶点u 和v的无向图的边。
 # 返回一条可以删去的边，使得结果图是一个有着N个节点的树。如果有多个答案，则返回二维数组中最后出现的边。
 # 答案边 [u, v] 应满足相同的格式 u < v。
+
+# 方法1 并查集
 class Solution:
     def findRedundantConnection(self, edges):
-        def find(index):
-            if parents[index] == index:
-                return index
-            parents[index] = find(parents[index])
-            return parents[index]
+        def find(node):
+            if parents[node] != node:
+                parents[node] = find(parents[node])
+            return parents[node]
 
-        parents = {}
+        def union(node1, node2):
+            if parents[node1] != parents[node2]:
+                parents[find(node2)] = find(node1)
+
         length = len(edges)
-        for i in range(1, length + 1):
-            parents[i] = i
+        parents = [i for i in range(length + 1)]
         res = []
-        for start, end in edges:
-            if find(start) == find(end):
-                res = [start, end]
+        for first, second in edges:
+            if find(second) == find(first):
+                res = [first, second]
             else:
-                parents[find(end)] = find(start)
+                union(first, second)
         return res
+
+
+if __name__ == '__main__':
+    s = Solution()
+    edges = [[1,2], [1,3], [2,3]]
+    print(s.findRedundantConnection(edges))
