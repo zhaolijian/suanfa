@@ -2,7 +2,7 @@
 # 注意:
 # 字符串长度 和 k 不会超过 104。
 
-
+# 使用双指针维护这些区间，每次右指针右移，如果区间仍然满足条件，那么左指针不移动，否则左指针至多右移一格，保证区间长度不减小
 from collections import defaultdict
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
@@ -17,10 +17,10 @@ class Solution:
                 left += 1
             right += 1
         return right - left
-
+    
 
 if __name__ == '__main__':
     s = Solution()
-    ss = "ABCDE"
-    k = 1
+    ss = "AABA"
+    k = 0
     print(s.characterReplacement(ss, k))
