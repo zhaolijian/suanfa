@@ -7,26 +7,27 @@
 
 # 普通dp
 class Solution:
-    def maxTurbulenceSize(self, arr: List[int]) -> int:
+    def maxTurbulenceSize(self, arr) -> int:
         length = len(arr)
         dp = [[1 for i in range(2)] for j in range(length)]
         for i in range(1, length):
             if arr[i] > arr[i - 1]:
                 dp[i][0] = dp[i - 1][1] + 1
-                dp[i][1] = 1
             elif arr[i] < arr[i - 1]:
-                dp[i][0] = 1
                 dp[i][1] = dp[i - 1][0] + 1
         res = 1
         for i in range(length):
-            for j in range(2):
-                res = max(res, dp[i][j])
+            if dp[i][0] > res:
+                res = dp[i][0]
+            if dp[i][1] > res:
+                res = dp[i][1]
         return res
+
 
 
 # dp优化
 class Solution:
-    def maxTurbulenceSize(self, arr: List[int]) -> int:
+    def maxTurbulenceSize(self, arr) -> int:
         length = len(arr)
         last_up, last_down, cur_up, cur_down, res = 1, 1, 1, 1, 1
         for i in range(1, length):

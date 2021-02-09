@@ -3,7 +3,7 @@
 # 返回 A 中好子数组的数目。
 from collections import defaultdict
 class Solution:
-    def subarraysWithKDistinct(self, A: List[int], K: int) -> int:
+    def subarraysWithKDistinct(self, A, K: int) -> int:
         # 最多有number个不同整数
         def atMost(number):
             d = defaultdict(int)
@@ -20,6 +20,22 @@ class Solution:
 
         # 最多为K个不同整数-最多为K-1个不同整数,则结果为恰好有K个不同整数
         return atMost(K) - atMost(K - 1)
+
+
+# 两层for循环的方法会超时
+class Solution:
+    def subarraysWithKDistinct(self, A, K: int) -> int:
+        res = 0
+        length = len(A)
+        for j in range(length):
+            set_array = set()
+            for i in range(j, length):
+                set_array.add(A[i])
+                if len(set_array) == K:
+                    res += 1
+                elif len(set_array) > K:
+                    break
+        return res
 
 
 if __name__ == '__main__':
