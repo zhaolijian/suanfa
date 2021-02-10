@@ -33,8 +33,28 @@ class Solution:
         return False
 
 
+from collections import Counter
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        ds1 = Counter(s1)
+        ds2 = Counter()
+        left = 0
+        for right, ele in enumerate(s2):
+            ds2[ele] += 1
+            while ds2[ele] > ds1[ele]:
+                ds2[s2[left]] -= 1
+                if ds2[s2[left]] == 0:
+                    ds2.pop(s2[left])
+                left += 1
+            if ds1 == ds2:
+                return True
+        return False
+
+
 if __name__ == '__main__':
     s = Solution()
-    s1 = "adc"
-    s2 = "dcda"
+    # s1 = "adc"
+    # s2 = "dcda"
+    s1 = "ab"
+    s2 = "eidbaooo"
     print(s.checkInclusion(s1, s2))
