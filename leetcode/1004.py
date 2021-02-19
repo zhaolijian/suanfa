@@ -6,20 +6,16 @@
 class Solution:
     def longestOnes(self, A, K: int) -> int:
         length = len(A)
-        left, right = 0, 0
-        n = 0
-        res = 0
+        left, right, cur_zero, res = 0, 0, 0, 0
         while right < length:
             if A[right] == 0:
-                n += 1
-            if n <= K:
-                res = max(res, right - left + 1)
-            else:
+                cur_zero += 1
+            if cur_zero > K:
                 if A[left] == 0:
-                    n -= 1
+                    cur_zero -= 1
                 left += 1
             right += 1
-        return res
+        return right - left
 
 
 if __name__ == '__main__':
