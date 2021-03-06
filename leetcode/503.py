@@ -3,18 +3,18 @@
 # 数字 x 的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。
 # 如果不存在，则输出 -1。
 
+
 class Solution:
     def nextGreaterElements(self, nums):
-        if not nums:
-            return []
         length = len(nums)
-        nums *= 2
         res = [-1] * length
         stack = []
         for i in range(2 * length):
-            while stack and nums[stack[-1]] < nums[i]:
-                res[stack.pop() % length] = nums[i]
-            stack.append(i)
+            index = i % length
+            while stack and nums[stack[-1]] < nums[index]:
+                res[stack.pop()] = nums[index]
+            if i < length:
+                stack.append(i)
         return res
 
 

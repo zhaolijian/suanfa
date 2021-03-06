@@ -32,7 +32,7 @@ class Solution:
         return res
 
 
-# 方法3 时间复杂度为O(length)
+# 方法3 dp+最低设置位    时间复杂度为O(length)
 class Solution:
     def countBits(self, num: int):
         res = [0]
