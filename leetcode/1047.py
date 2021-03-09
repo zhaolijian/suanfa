@@ -35,3 +35,19 @@ class Solution:
             new_str = ""
             flag = False
         return new_str
+
+
+class Solution:
+    def removeDuplicates(self, S: str) -> str:
+        def func(S):
+            # 处理后的字符串、初始字符串长度、索引、删除次数
+            res, length, right, number = "", len(S), 0, 0
+            while right < length:
+                if right < length - 1 and S[right] == S[right + 1]:
+                    number += 1
+                    right += 2
+                else:
+                    res += S[right]
+                    right += 1
+            return res if number == 0 else func(res)
+        return func(S)
