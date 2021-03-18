@@ -1,8 +1,8 @@
 # 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
 class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 # 头插法
@@ -12,7 +12,6 @@ class Solution:
         init.next = head
         # m位置前一个节点,m位置节点
         p, q = init, head
-        i = 0
         for i in range(m - 1):
             p = p.next
             q = q.next
@@ -46,3 +45,14 @@ class Solution:
         last_node.next = mid_head
         mid_tail.next = cur
         return init.next
+
+
+if __name__ == '__main__':
+    s = Solution()
+    head = ListNode(1)
+    array = [2, 3, 4, 5]
+    cur = head
+    for ele in array:
+        cur.next = ListNode(ele)
+        cur = cur.next
+    print(s.reverseBetween(head, 2, 4))
