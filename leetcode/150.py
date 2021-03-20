@@ -7,27 +7,22 @@
 
 class Solution:
     def evalRPN(self, tokens) -> int:
-        for i, ele in enumerate(tokens):
-            if ele not in {'+', '-', '*', '/'}:
-                tokens[i] = int(ele)
         stack = []
         for ele in tokens:
-            if ele == '+':
-                temp = stack.pop() + stack.pop()
-                stack.append(temp)
-            elif ele == '-':
-                first = stack.pop()
-                temp = stack.pop() - first
-                stack.append(temp)
-            elif ele == '*':
-                temp = stack.pop() * stack.pop()
-                stack.append(temp)
-            elif ele == '/':
-                first = stack.pop()
-                temp = stack.pop() / first
-                stack.append(int(temp))
+            if ele == "+":
+                temp1, temp2 = stack.pop(), stack.pop()
+                stack.append(temp1 + temp2)
+            elif ele == "-":
+                temp1, temp2 = stack.pop(), stack.pop()
+                stack.append(temp2 - temp1)
+            elif ele == "*":
+                temp1, temp2 = stack.pop(), stack.pop()
+                stack.append(temp1 * temp2)
+            elif ele == "/":
+                temp1, temp2 = stack.pop(), stack.pop()
+                stack.append(int(temp2 / temp1))
             else:
-                stack.append(ele)
+                stack.append(int(ele))
         return stack[-1]
 
 
