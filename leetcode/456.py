@@ -15,8 +15,9 @@ class Solution:
         for i in range(length - 1, -1, -1):
             while stack and stack[-1] <= min_array[i]:
                 stack.pop()
-            # stack: 后面的值比当前值前面的值大
+
             # nums[i] > stack[-1]：当前值比后面的值大
+            # nums[i]最大值、stack中间值、min_array最小值
             if stack and nums[i] > stack[-1]:
                 return True
             stack.append(nums[i])
