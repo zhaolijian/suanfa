@@ -4,22 +4,22 @@
 
 class Solution:
     def find132pattern(self, nums) -> bool:
-        length = len(nums)
-        if length < 3:
-            return False
-        # 开始位置到当前位置的最小值数组
+        # 到当前为止的最小值
         min_array = [nums[0]]
+        length = len(nums)
         for i in range(1, length):
-            min_array.append(min(nums[i], min_array[-1]))
+            min_array.append(min(min_array[-1], nums[i]))
+        # 栈中存放次小值
         stack = []
+        # nums[i]作为最大值
         for i in range(length - 1, -1, -1):
+            # 保证了栈中的次小值大于最小值
             while stack and stack[-1] <= min_array[i]:
                 stack.pop()
-
-            # nums[i] > stack[-1]：当前值比后面的值大
-            # nums[i]最大值、stack中间值、min_array最小值
+            # 如果遍历值大于栈中的次小值,并且上面的while循环保证了次小值大于最小值,则返回true
             if stack and nums[i] > stack[-1]:
                 return True
+            # 栈为空或者nums[i]<=stack[-1]的情况,所以栈中存放的是递减序列
             stack.append(nums[i])
         return False
 
