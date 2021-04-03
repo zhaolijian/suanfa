@@ -11,6 +11,30 @@ class Solution:
             return head
         length = 0
         cur = head
+        tail = None
+        while cur:
+            length += 1
+            tail = cur
+            cur = cur.next
+        k = k % length
+        if k == 0:
+            return head
+        pre = None
+        new_head = head
+        for i in range(length - k):
+            pre = new_head
+            new_head = new_head.next
+        pre.next = None
+        tail.next = head
+        return new_head
+
+
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head:
+            return head
+        length = 0
+        cur = head
         while cur:
             length += 1
             cur = cur.next
@@ -36,11 +60,11 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    array = [1]
+    array = [1, 2, 3, 4, 5]
     dummy = ListNode(0)
     cur = dummy
     for ele in array:
         cur.next = ListNode(ele)
         cur = cur.next
-    k = 0
+    k = 2
     print(s.rotateRight(dummy.next, k))

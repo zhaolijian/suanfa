@@ -8,6 +8,7 @@ class Solution:
             if text1[i] == text2[0]:
                 dp[i][0] = 1
             else:
+                # 当i=0时，如果不相等，dp[0][0] = dp[-1][0]=0,所以其实不用专门先把dp[0][0]获取到
                 dp[i][0] = dp[i - 1][0]
         for j in range(len2):
             if text1[0] == text2[j]:

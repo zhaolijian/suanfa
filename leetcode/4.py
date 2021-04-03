@@ -14,7 +14,6 @@ class Solution:
         l, r = 0, 0
         # 记录总位置
         temp = 0
-        val = float('inf')
         res = []
         while l < len(l1) and r < len(l2):
             if l1[l] <= l2[r]:
