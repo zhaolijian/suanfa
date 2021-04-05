@@ -42,3 +42,15 @@ class Solution:
                     temp.append(ele.right)
             array = temp
         return res
+
+
+if __name__ == '__main__':
+    s = Solution()
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    l = root.left
+    r = root.right
+    l.right = TreeNode(5)
+    r.right = TreeNode(4)
+    print(s.rightSideView(root))

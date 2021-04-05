@@ -13,6 +13,7 @@ class Solution:
             for j in range(1, col):
                 if s[i - 1] == p[j - 1] or p[j - 1] == '.':
                     dp[i][j] = dp[i - 1][j - 1]
+                # 题目说了,保证每次出现字符 * 时，前面都匹配到有效的字符,所以不可能p[0]=‘*’
                 elif p[j - 1] == '*':
                     if s[i - 1] == p[j - 2] or p[j - 2] == '.':
                         dp[i][j] = dp[i][j - 2] or dp[i - 1][j]

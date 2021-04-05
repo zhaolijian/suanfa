@@ -1,58 +1,65 @@
+# 方法1 最小堆+最大堆
+from heapq import heapify, heappush, heappop
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2) -> float:
-        length = len(nums1) + len(nums2)
-        sign = True
-        if length % 2 == 1:
-            sign = False
-        return self.findMiddle(nums1, nums2, length, sign)
+        len_1, len_2 = len(nums1), len(nums2)
+        sum_length = len_1 + len_2
+        # 为true表示长度总和奇数,否则表示长度总和偶数
+        flag = True if sum_length % 2 else False
+        min_heap, max_heap = nums1 + nums2, []
+        heapify(min_heap)
+        heapify(max_heap)
+        number = 0
+        while number < sum_length // 2:
+            temp = heappop(min_heap)
+            heappush(max_heap, -temp)
+            number += 1
+        if flag:
+            return heappop(min_heap)
+        else:
+            return (heappop(min_heap) - heappop(max_heap)) / 2
 
 
-    def findMiddle(self, l1, l2, length, sign):
-        # 如果sign为True,则找中间两个数的平均数
-        # 如果sign为false,则找中间数
-        # 使用归并排序
-        l, r = 0, 0
-        # 记录总位置
-        temp = 0
+# 方法2 双指针
+class Solution:
+    def findMedianSortedArrays(self, nums1, nums2) -> float:
         res = []
-        while l < len(l1) and r < len(l2):
-            if l1[l] <= l2[r]:
-                temp += 1
-                val = l1[l]
-                l += 1
+        left1, left2, len1, len2 = 0, 0, len(nums1), len(nums2)
+        length = len1 + len2
+        # true表示奇数,false表示偶数
+        flag = True if length % 2 else False
+        number = 0
+        while left1 < len1 and left2 < len2:
+            if nums1[left1] < nums2[left2]:
+                val = nums1[left1]
+                left1 += 1
             else:
-                temp += 1
-                val = l2[r]
-                r += 1
-            if sign and temp == (length - 1) // 2 + 1 or temp == (length - 1) // 2 + 2:
-                res.append(val)
-                if len(res) == 2:
-                    return float(sum(res)) / 2
-            elif not sign and temp == (length - 1) // 2 + 1:
+                val = nums2[left2]
+                left2 += 1
+            if flag and number == length // 2:
                 return val
-        if l1[l:]:
-            if sign:
-                if res:
-                    return float(res[0] + l1[l]) / 2
-                else:
-                    return float(l1[length // 2 - len(l2) - 1] + l1[length // 2 - len(l2)]) / 2
+            if not flag:
+                if number == length // 2 - 1 or number == length // 2:
+                    res.append(val)
+                if len(res) == 2:
+                    return sum(res) / 2
+            number += 1
+        if left1 < len1:
+            if flag:
+                return nums1[length // 2 - len2]
             else:
-                if l2:
-                    return l1[length // 2 - len(l2)]
-                else:
-                    return l1[len(l1) // 2]
-        if l2[r:]:
-            if sign:
                 if res:
-                    return float(res[0] + l2[r]) / 2
+                    return (res[0] + nums1[left1]) / 2
                 else:
-                    return float(l2[length // 2 - len(l1) - 1] + l2[length // 2 - len(l1)]) / 2
-            # 奇数
+                    return (nums1[length // 2 - len2 - 1] + nums1[length // 2 - len2]) / 2
+        if left2 < len2:
+            if flag:
+                return nums2[length // 2 - len1]
             else:
-                if l1:
-                    return l2[length // 2 - len(l1)]
+                if res:
+                    return (res[0] + nums2[left2]) / 2
                 else:
-                    return l2[len(l2) // 2]
+                    return (nums2[length // 2 - len1 - 1] + nums2[length // 2 - len1]) / 2
 
 
 if __name__ == '__main__':
