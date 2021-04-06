@@ -4,6 +4,26 @@ class ListNode:
         self.next = None
 
 class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        if not head.next:
+            return None
+        dummy = ListNode()
+        dummy.next = head
+        # slow到删除的节点,fast到最后一个节点
+        slow, fast, prev, flag = dummy, dummy, None, True
+        while fast.next:
+            if flag:
+                for i in range(n - 1):
+                    fast = fast.next
+                flag = False
+            prev = slow
+            slow = slow.next
+            fast = fast.next
+        prev.next = slow.next
+        return dummy.next
+
+
+class Solution:
     def removeNthFromEnd(self, head, n: int):
         if not head:
             return None

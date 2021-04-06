@@ -8,7 +8,7 @@ class TreeNode:
 class Solution:
     def __init__(self):
         self.res = float('-inf')
-        
+
     def maxPathSum(self, root) -> int:
         def func(root):
             if not root:
@@ -24,6 +24,13 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.right = TreeNode(3)
+    root.left = TreeNode(-2)
+    root.right = TreeNode(-3)
+    l = root.left
+    r = root.right
+    l.left = TreeNode(1)
+    l.right = TreeNode(3)
+    r.left = TreeNode(-2)
+    ll = l.left
+    ll.left = TreeNode(-1)
     print(s.maxPathSum(root))

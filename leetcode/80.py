@@ -17,3 +17,9 @@ class Solution:
                 left += 1
                 number = 1
         return left
+
+
+if __name__ == '__main__':
+    s = Solution()
+    nums = [1,1,1,2,2,3]
+    print(s.removeDuplicates(nums))
