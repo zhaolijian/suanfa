@@ -1,22 +1,22 @@
 # 方法1 动态编程
 # 思路，遍历每个元素，找到该元素左侧最大值和该元素右侧最大值，取最小值减去该元素值
-# class Solution:
-#     def trap(self, height: List[int]) -> int:
-#         high = len(height)
-#         if high <= 2:
-#             return 0
-#         res = 0
-#         left_max = [0 for i in range(high)]
-#         right_max = [0 for j in range(high)]
-#         left_max[0] = height[0]
-#         right_max[-1] = height[-1]
-#         for i in range(1, high):
-#             left_max[i] = max(left_max[i - 1], height[i])
-#         for j in range(high - 2, -1, -1):
-#             right_max[j] = max(right_max[j + 1], height[j])
-#         for i in range(high):
-#             res += min(left_max[i], right_max[i]) - height[i]
-#         return res
+class Solution:
+    def trap(self, height) -> int:
+        length = len(height)
+        if length < 3:
+            return 0
+        left_max_value, right_array, res = height[0], [height[-1]], 0
+        for i in range(length - 2, -1, -1):
+            if height[i] > right_array[-1]:
+                right_array.append(height[i])
+            else:
+                right_array.append(right_array[-1])
+        right_array = right_array[::-1]
+        for i in range(1, length):
+            left_max_value = max(left_max_value, height[i])
+            temp = min(left_max_value, right_array[i]) - height[i]
+            res += temp
+        return res
 
 
 # 方法2：栈
