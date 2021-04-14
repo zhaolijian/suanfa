@@ -4,7 +4,8 @@
 class Solution:
     def __init__(self):
         self.res = []
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
+
+    def postorderTraversal(self, root):
         if not root:
             return
         self.postorderTraversal(root.left)
@@ -15,7 +16,7 @@ class Solution:
 
 # 方法2 迭代
 class Solution:
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
+    def postorderTraversal(self, root):
         if not root:
             return []
         init = [root]
@@ -28,3 +29,24 @@ class Solution:
             if temp.right:
                 init.append(temp.right)
         return res[::-1]
+
+
+# 方法3 颜色标记法
+class Solution:
+    def postorderTraversal(self, root):
+        if not root:
+            return []
+        red, white = 1, 0
+        stack = [(root, white)]
+        res = []
+        while stack:
+            temp, color = stack.pop()
+            if color == red:
+                res.append(temp.val)
+            else:
+                stack.append((temp, red))
+                if temp.right:
+                    stack.append((temp.right, white))
+                if temp.left:
+                    stack.append((temp.left, white))
+        return res

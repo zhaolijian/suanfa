@@ -28,9 +28,9 @@ class Solution:
         return res
 
 
-# 前序遍历之迭代
+# 栈
 class Solution:
-    def preorderTraversal(self, root: TreeNode) -> List[int]:
+    def preorderTraversal(self, root):
         if not root:
             return []
         stack = [root]
