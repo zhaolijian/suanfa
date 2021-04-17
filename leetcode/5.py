@@ -1,29 +1,21 @@
 # 从中间往两边扩展，较快
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if len(s) <= 1:
-            return s
+        length = len(s)
         res = ""
-        for i in range(len(s) - 1):
-            temp = 0
-            if s[i] == s[i + 1]:
-                temp += 1
-                while i - temp >= 0 and i + temp + 1 < len(s):
-                    if s[i - temp] == s[i + temp + 1]:
-                        temp += 1
-                    else:
-                        break
-                if 2 * temp > len(res):
-                    res = s[i - temp + 1: i + temp + 1]
-            # 考虑回文奇数
-            temp = 1
-            while i - temp >= 0 and i + temp < len(s):
-                if s[i - temp] == s[i + temp]:
-                    temp += 1
-                else:
-                    break
-            if 2 * temp - 1 > len(res):
-                res = s[i - temp + 1: i + temp]
+        for i in range(length):
+            # 奇数
+            number = 1
+            while i - number >= 0 and i + number < length and s[i - number] == s[i + number]:
+                number += 1
+            if 2 * number - 1 > len(res):
+                res = s[i - number + 1: i + number]
+            # 偶数
+            number = 0
+            while i - number >= 0 and i + number + 1 < length and s[i - number] == s[i + number + 1]:
+                number += 1
+            if 2 * number > len(res):
+                res = s[i - number + 1: i + number + 1]
         return res
 
 

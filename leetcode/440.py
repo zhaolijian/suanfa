@@ -23,3 +23,10 @@ class Solution:
                 prefix += 1
                 index += temp
         return prefix
+
+
+
+if __name__ == '__main__':
+    s = Solution()
+    n, k = 13, 2
+    print(s.findKthNumber(n, k))
