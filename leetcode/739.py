@@ -1,29 +1,4 @@
 # 和下面同一种思路，但是下面真简单，上面这种不能通过
-# class Solution:
-#     def dailyTemperatures(self, T):
-#         stack = []
-#         res = []
-#         for i in range(len(T) - 1, -1, -1):
-#             if not stack:
-#                 stack.append(i)
-#                 res = [0] + res
-#             elif T[stack[-1]] > T[i]:
-#                 res = [stack[-1] - i] + res
-#                 stack.append(i)
-#             # T[stack[-1]] <= T[i]
-#             else:
-#                 while stack:
-#                     temp = stack[-1]
-#                     if T[temp] > T[i]:
-#                         res = [temp - i] + res
-#                         break
-#                     else:
-#                         stack.pop()
-#                 if not stack:
-#                     res = [0] + res
-#                 stack.append(i)
-#         return res
-
 class Solution:
     def dailyTemperatures(self, T):
         length = len(T)

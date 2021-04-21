@@ -32,25 +32,16 @@ class Solution:
         return -1
 
 
-# 方法2 时间复杂度O(mn)
+# 方法2
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        if not needle:
+        len_neelde = len(needle)
+        len_haystack = len(haystack)
+        if needle == "":
             return 0
-        len_hay, len_needle = len(haystack), len(needle)
-        if len_needle > len_hay:
+        if len_neelde > len_haystack:
             return -1
-        for i in range(len_hay):
-            if len_hay - i < len_needle:
-                return -1
-            j = 0
-            temp = i
-            while j < len_needle:
-                if haystack[temp] == needle[j]:
-                    if j == len_needle - 1:
-                        return i
-                    j += 1
-                    temp += 1
-                else:
-                    break
+        for i in range(len_haystack - len_neelde + 1):
+            if haystack[i: i + len_neelde] == needle:
+                return i
         return -1
