@@ -3,7 +3,7 @@
 
 
 class Solution:
-    def distributeCandies(self, candies: List[int]) -> int:
+    def distributeCandies(self, candies) -> int:
         # 统计糖果的种类数
         # 如果糖果的种类数 >= 糖果总数的一半,那么直接返回糖果总数的一半
         # 否则返回糖果的种类数
