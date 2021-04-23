@@ -19,6 +19,9 @@ class Solution:
         parent = [i for i in range(length // 2)]
         for i in range(0, length, 2):
             union(row[i] // 2, row[i + 1] // 2)
+        # 连通分量中的元素个数-1为该连通分量中需要交换的交换次数
+        # N1。。Nn为该连通分量中的情侣对数,N为总情侣对数，n为连通分量数
+        # 总的需要交换次数=（N1-1）+(N2-1)+...+(Nn-1) = N-n
         res = sum(i == find(i) for i in range(length // 2))
         return length // 2 - res
 
