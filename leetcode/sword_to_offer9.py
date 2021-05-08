@@ -10,7 +10,6 @@ class CQueue:
             self.stack1.append(self.stack2.pop())
         self.stack1.append(value)
 
-
     def deleteHead(self) -> int:
         while self.stack1:
             self.stack2.append(self.stack1.pop())

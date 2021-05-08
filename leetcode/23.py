@@ -40,6 +40,9 @@ class Solution:
         return head.next
 
 
+# 方法2 堆
+
+
 if __name__ == '__main__':
     head1 = ListNode(1)
     head1.next = ListNode(4)

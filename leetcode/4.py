@@ -1,4 +1,25 @@
-# 方法1 最小堆+最大堆
+# 方法1
+from heapq import heapify, heappush, heappop
+class Solution:
+    def findMedianSortedArrays(self, nums1, nums2) -> float:
+        global temp
+        len_1, len_2 = len(nums1), len(nums2)
+        sum_length = len_1 + len_2
+        # 为true表示长度总和奇数,否则表示长度总和偶数
+        flag = True if sum_length % 2 else False
+        min_heap = nums1 + nums2
+        heapify(min_heap)
+        number = 0
+        while number < sum_length // 2:
+            temp = heappop(min_heap)
+            number += 1
+        if flag:
+            return heappop(min_heap)
+        else:
+            return (heappop(min_heap) + temp) / 2
+
+
+# 最小堆+最大堆
 from heapq import heapify, heappush, heappop
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2) -> float:
