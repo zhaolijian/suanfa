@@ -10,13 +10,7 @@ class Solution:
 
 class Solution:
     def reverseLeftWords(self, s: str, n: int) -> str:
-        length = len(s)
-        res = ""
-        for i in range(n, length):
-            res += s[i]
-        for i in range(n):
-            res += s[i]
-        return res
+        return s[n:] + s[:n]
 
 
 class Solution:

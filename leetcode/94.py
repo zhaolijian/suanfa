@@ -71,11 +71,9 @@ class Solution:
         def func(root):
             if not root:
                 return
-            if root.left:
-                func(root.left)
+            func(root.left)
             self.res.append(root.val)
-            if root.right:
-                func(root.right)
+            func(root.right)
 
         func(root)
         return self.res

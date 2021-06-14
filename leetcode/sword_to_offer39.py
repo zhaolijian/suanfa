@@ -11,5 +11,22 @@ class Solution:
             number += 1 if candidata == nums[i] else - 1
         return candidata
 
+
+# 好理解下
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        temp = -1
+        number = 0
+        for i, ele in enumerate(nums):
+            if number == 0:
+                temp = ele
+                number += 1
+            else:
+                if temp == ele:
+                    number += 1
+                else:
+                    number -= 1
+        return temp
+
 # 方法2 哈希
 # 方法3 排序

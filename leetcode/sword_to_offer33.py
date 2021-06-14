@@ -2,42 +2,35 @@
 
 # 方法1
 class Solution:
-    def __init__(self):
-        self.res = True
-
-    def verifyPostorder(self, postorder) -> bool:
-        def func(postorder):
-            if not postorder:
-                return
-            root = postorder[-1]
-            index = -1
-            for i in range(len(postorder) - 1):
-                if postorder[i] > root:
-                    index = i
-                    break
-            if index == -1:
-                func(postorder[:-1])
-            else:
-                for j in range(index + 1, len(postorder) - 1):
-                    if postorder[j] < root:
-                        self.res = False
-                        return
-                func(postorder[:index])
-                func(postorder[index:-1])
-
-        func(postorder)
-        return self.res
+    def verifyPostorder(self, postorder: List[int]) -> bool:
+        length = len(postorder)
+        if length == 0 or length == 1:
+            return True
+        # index为第一个比postorder[-1]大的下标
+        index = -1
+        for i, ele in enumerate(postorder):
+            if ele >= postorder[-1]:
+                index = i
+                break
+        # index右侧不能出现比postorder[-1]小的，因为后序遍历，左子树节点值都要比根节点值小，右子树节点值都要比根节点值大
+        for i in range(index, length):
+            if postorder[i] < postorder[-1]:
+                return False
+        return self.verifyPostorder(postorder[:index]) & self.verifyPostorder(postorder[index:-1])
 
 
-# 方法2 思路与上面方法基本一样，但是简单很多
+# 方法2 思路与上面方法基本一样
 class Solution:
     def verifyPostorder(self, postorder: [int]) -> bool:
         def recur(i, j):
-            if i >= j: return True
+            if i >= j:
+                return True
             p = i
-            while postorder[p] < postorder[j]: p += 1
+            while postorder[p] < postorder[j]:
+                p += 1
             m = p
-            while postorder[p] > postorder[j]: p += 1
+            while postorder[p] > postorder[j]:
+                p += 1
             return p == j and recur(i, m - 1) and recur(m, j - 1)
 
         return recur(0, len(postorder) - 1)
@@ -46,9 +39,10 @@ class Solution:
 # 方法3 看不太懂
 class Solution:
     def verifyPostorder(self, postorder: [int]) -> bool:
-        stack, root = [], float("+inf")
+        stack, root = [], float("inf")
         for i in range(len(postorder) - 1, -1, -1):
-            if postorder[i] > root: return False
+            if postorder[i] > root:
+                return False
             while(stack and postorder[i] < stack[-1]):
                 root = stack.pop()
             stack.append(postorder[i])

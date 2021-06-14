@@ -1,13 +1,13 @@
 # 连续子数组的最大和
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        res = float('-inf')
-        temp = 0
-        for i in range(len(nums)):
-            if temp <= 0:
-                res = max(res, nums[i])
-                temp = nums[i]
+        res = nums[0]
+        already = 0
+        for ele in nums:
+            if already <= 0:
+                already = ele
             else:
-                res = max(res, temp + nums[i])
-                temp += nums[i]
+                already += ele
+            if already > res:
+                res = already
         return res
