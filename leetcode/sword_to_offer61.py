@@ -8,7 +8,7 @@ class Solution:
         for i in range(1, 5):
             if nums[i] == nums[i - 1] and nums[i] != 0:
                 return False
-        # 大小王的个数
+        # 找到第一个不为大小王的下标
         number = 0
         for ele in nums:
             if ele == 0:
